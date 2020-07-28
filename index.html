@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <style>
-       /* Set the size of the div element that contains the map */
-      #map{
-      height: 800px;
-      width: 50%;
-      margin-left:auto; 
-      margin-right:auto;	      
-    }
+      /* Set the size of the div element that contains the map */
+      #map {
+        height: 800px;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      }
     </style>
   </head>
 
@@ -18,51 +17,64 @@
     <!--The div element for the map -->
     <div id="map"></div>
     <script>
-		function initMap() {
-		   var options = {
-		      zoom:12,
-		      center: { lat:23.0225, lng:72.5714} //Coordinates of New York 
-		   }
-		var map = new google.maps.Map(document.getElementById('map'), options);
-		
+      function initMap() {
+        var options = {
+          zoom: 12,
+          center: { lat: 23.0225, lng: 72.5714 }, //Coordinates of New York
+        };
+        var map = new google.maps.Map(document.getElementById("map"), options);
 
-		function addMarker(prop) {
-		   var marker = new google.maps.Marker({
-		      position: prop.coordinates, // Passing the coordinates
-		      map:map, //Map that we need to add
-		      draggarble: false// If set to true you can drag the marker
-		   });
-		   if(prop.iconImage) { marker.setIcon(prop.iconImage); }
-		   if(prop.content) { 
-		      var information = new google.maps.InfoWindow({
-		      content: prop.content
-		      });
-		      
-		      marker.addListener('click', function() {
-		      information.open(map, marker);
-		      });
-		   }
-		}
+        function addMarker(prop) {
+          var marker = new google.maps.Marker({
+            position: prop.coordinates, // Passing the coordinates
+            map: map, //Map that we need to add
+            draggarble: false, // If set to true you can drag the marker
+          });
+          if (prop.iconImage) {
+            marker.setIcon(prop.iconImage);
+          }
+          if (prop.content) {
+            var information = new google.maps.InfoWindow({
+              content: prop.content,
+            });
 
-		addMarker({
-		   coordinates:{lat: 23.1284, lng: 72.5449},
-		   // iconImage:'https://img.icons8.com/fluent/48/000000/marker-storm.png',
-		   content:'<h4>Washing Powder</h4>'
-		});
-		addMarker({
-			coordinates:{lat: 23.0906, lng: 72.5349},
-			content:'<h4>Silver Stone</h4>'
-			}); // Manhattan Coordinates
-	}
+            marker.addListener("click", function () {
+              information.open(map, marker);
+            });
+          }
+        }
+        const table = [];
+        getData();
+        async function getData() {
+          const response = await fetch("mapdata.csv");
+          const data = await response.text();
 
+          const table = data.split("\n").slice(1);
+
+          table.forEach((row) => {
+            const columns = row.split(",");
+            console.log(columns[0], columns[1]);
+            addMarker({
+              coordinates: {
+                lat: parseFloat(columns[0]),
+                lng: parseFloat(columns[1]),
+              },
+              content: "<h4>" + columns[3] + "</h4>",
+            });
+          });
+        }
+        // Manhattan Coordinates
+        // Manhattan Coordinates
+      }
     </script>
     <!--Load the API from the specified URL
     * The async attribute allows the browser to render the page while the API loads
     * The key parameter will contain your own API key (which is not needed for this tutorial)
     * The callback parameter executes the initMap() function
     -->
-    <script defer
-    src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap">
-    </script>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&callback=initMap"
+    ></script>
   </body>
 </html>
