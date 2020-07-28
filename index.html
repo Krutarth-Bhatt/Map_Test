@@ -20,7 +20,7 @@
       function initMap() {
         var options = {
           zoom: 15,
-          center: { lat: 23.0225, lng: 72.5714 }, //Coordinates of New York
+          center: { lat: 23.111159, lng: 72.567854 }, //Coordinates of New York
         };
         var map = new google.maps.Map(document.getElementById("map"), options);
 
@@ -56,8 +56,8 @@
             console.log(columns[0], columns[1]);
             addMarker({
               coordinates: {
-                lat: parseDouble(columns[0]),
-                lng: parseDouble(columns[1]),
+                lat: parseFloat(columns[0]),
+                lng: parseFloat(columns[1]),
               },
               content: "<h4>" + columns[3] + "</h4>",
             });
