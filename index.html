@@ -16,7 +16,7 @@
       body {
         background-image: url('back2.png');
         background-repeat: no-repeat;
-        background-size: 80% 90%;
+        background-size: 90% 100%;
         background-position: center; 
       }
     </style>
@@ -72,7 +72,7 @@
                 lat: parseFloat(columns[0]),
                 lng: parseFloat(columns[1]),
               },
-              content: "<h4>" + columns[3] + "</h4>",
+              content: "<h4>" + columns[2] +"<br>Rating:"+ columns[3]+ "</h4>",
             });
           });
         }
