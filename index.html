@@ -23,8 +23,10 @@
   </head>
 
   <body>
+    <center>
     <h1>Collected Ratings on Map</h1>
     <h3>(Click on the MArker to view the information)</h3>
+    </center>
       
     <!--The div element for the map -->
     <div id="map"></div>
@@ -71,7 +73,7 @@
                 lat: parseFloat(columns[0]),
                 lng: parseFloat(columns[1]),
               },
-              content: "<h4>" + columns[2] +"<br>Rating:"+ columns[4]+ "</h4>",
+              content: "<h4>" + columns[2] +"<br>Rating:"+ columns[4]+"<br>% Employees :"+ columns[5]+ "</h4>",
             });
           });
         }
